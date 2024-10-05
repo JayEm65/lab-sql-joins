@@ -35,14 +35,16 @@ SELECT
 FROM 
     store s
 JOIN 
-    payment p ON s.store_id = p.store_id
+    staff st ON s.store_id = st.store_id
+JOIN 
+    payment p ON st.staff_id = p.staff_id  -- Fixed join logic
 GROUP BY 
     s.store_id;
 
 -- 4. Determine the average running time of films for each category.
 SELECT 
     c.name AS category_name,
-    AVG(f.length) AS average_running_time
+    ROUND(AVG(f.length), 2) AS average_running_time  -- Rounded to two decimal places
 FROM 
     category c
 JOIN 
@@ -110,4 +112,4 @@ FROM
 LEFT JOIN 
     inventory i ON f.film_id = i.film_id
 GROUP BY 
-    f.film_id, f.title;
+    f.film_id, f.title;  -- Added this query
